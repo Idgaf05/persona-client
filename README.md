@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+# 🐾 Persona: Emotion-Driven Character & Scene Simulation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Persona** is a full-stack web application that blends emotional intelligence with interactive storytelling. Users create emotionally profiled characters, simulate their reactions to narrative scenes, and discover personalized matches based on mood compatibility. Designed with playful visuals and pastel aesthetics, Persona offers a unique experience where data meets empathy.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🎯 What Is Persona?
 
-### `npm start`
+Persona is a simulation platform where:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Users create characters with emotional and personality traits.
+- Scenes have emotional atmospheres (moods) and affect characters differently.
+- The system calculates compatibility between characters and scenes.
+- Users simulate battles, receive scene suggestions, and manage emotional favorites.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Layer        | Technology                     |
+|--------------|--------------------------------|
+| Frontend     | React, React Router, MUI       |
+| Backend      | Node.js, Express.js            |
+| Database     | MongoDB, Mongoose              |
+| API Design   | RESTful                        |
+| Styling      | MUI (Material UI), custom themes |
+| Animation    | CSS keyframes (🫧 bubble effects) |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📦 Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 👤 Character Creation
+- Define name, age, background, and avatar.
+- Set emotional profile (anger, joy, fear, sadness, surprise).
+- Personality traits based on Big Five (openness, extraversion, etc.).
+- Visual sliders for emotion input.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🎬 Scene System
+- Each scene has a mood (e.g. melancholic, playful, intense).
+- Scenes carry emotional impact values.
+- Scenes can “resonate” with specific character types.
 
-### `npm run eject`
+### ⚔️ Battle Simulation
+- Select 3 characters and 3 scenes.
+- System calculates compatibility matrix.
+- Finds best match permutation for maximum emotional alignment.
+- Displays winners per scene and average success score.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🧠 Emotion Simulation
+- Simulate how a character reacts to a selected scene.
+- Updates emotional profile based on scene impact.
+- Shows compatibility score and readiness level.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### ⭐ Favorites & Emotional Home
+- Automatically assign a “home scene” based on dominant emotion.
+- View all favorited scenes with mood and color.
+- Navigate to scene detail pages with thematic descriptions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 📊 Scene List with Compatibility
+- View all scenes with:
+  - Emotional impact map (positive/negative effects).
+  - Compatibility score with current character.
+  - Story snippet and mood chip.
+  - Resonance tags.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🧮 Compatibility Logic
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Each scene mood has weighted emotional effects:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+const moodWeights = {
+  playful:     { joy: 1.0, fear: -0.3 },
+  tense:       { fear: 1.0, joy: -0.5 },
+  melancholic: { sadness: 1.0, anger: -0.2 },
+  intense:     { anger: 1.0, surprise: 0.5 },
+  mystery:     { surprise: 1.0, fear: 0.3 },
+  neutral:     { joy: 0.5, sadness: 0.5 }
+};
+```
+Compatibility is calculated by multiplying character emotions with scene mood weights, then normalizing to a 0–100 score.
+### 🧭 Navigation Flow
+Home Page → Character Select or Create
+Character Dashboard → Simulate scene, view emotional profile
+Battle Arena → Select characters, simulate battle
+Favorites Page → View emotional home and saved scenes
+Scene Detail → Read mood description and emotional impact
+Scene List → Browse all scenes with compatibility scores
+```bash
+├── models/
+│   ├── Character.js
+│   ├── Scene.js
+│   ├── FavoriteScene.js
+│   └── EventLog.js
 
-### Code Splitting
+├── controllers/
+│   ├── characterController.js
+│   ├── sceneController.js
+│   ├── battleController.js
+│   └── emotionController.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+├── routes/
+│   ├── characterRoutes.js
+│   ├── sceneRoutes.js
+│   ├── battleRoutes.js
+│   └── emotionRoutes.js
 
-### Analyzing the Bundle Size
+├── client/
+│   ├── components/
+│   │   ├── CharacterCard.jsx
+│   │   ├── CatCelebration.jsx
+│   │   ├── EmotionSimulator.jsx
+│   │   ├── SceneSuggestion.jsx
+│   │   └── FavoriteSceneList.jsx
+│   ├── pages/
+│   │   ├── CharacterCreate.jsx
+│   │   ├── CharacterDashboard.jsx
+│   │   ├── CharacterSelect.jsx
+│   │   ├── BattlePage.jsx
+│   │   ├── FavoritesPage.jsx
+│   │   ├── ScenePage.jsx
+│   │   ├── SceneListPage.jsx
+│   │   └── CharacterDashboardWrapper.jsx
+│   └── App.js
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 🚀 Getting Started
+Backend Setup
+```bash
+npm install
+npm run dev
+```
+Frontend Setup
+```bash
+cd client
+npm install
+npm start
+```
+Seed Scenes
+```bash
+node seedScenes.js
+```
+## 🧪 Testing Ideas
+Compatibility calculation edge cases
 
-### Making a Progressive Web App
+Scene simulation with extreme emotion values
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Battle permutation logic
 
-### Advanced Configuration
+Auto-favorite assignment accuracy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Modal editing of characters
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 💡 Design Philosophy
+Persona is built around the idea that emotional data can drive meaningful interaction. Instead of static attributes, characters evolve through scenes. The UI is designed to feel soft, playful, and emotionally engaging, from bubble animations to pastel color palettes.
